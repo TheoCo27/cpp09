@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 09:46:30 by tcohen            #+#    #+#             */
-/*   Updated: 2025/08/18 15:04:33 by tcohen           ###   ########.fr       */
+/*   Updated: 2025/08/18 17:38:02 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool check_if_valid_float(std::string str)
 
 bool check_date(std::string date)
 {
-	std::cout << date <<  std::endl;
+	// std::cout << date <<  std::endl;
 	std::stringstream ss(date);
 	char dash1, dash2;
 	unsigned int year, month, day;
@@ -102,7 +102,7 @@ bool check_date(std::string date)
 
 bool check_value(std::string value)
 {
-	std::cout << value << std::endl;
+	// std::cout << value << std::endl;
 	if (value.find('.'))
 		return (check_if_valid_float(value));
 	else
@@ -162,3 +162,30 @@ bool check_input_line(std::string line)
 		return false;
 	return true;
 }
+
+// bool check_data_line(std::string line)
+// {
+// 	if (line.find(',') == std::string::npos)
+// 	{
+// 		std::cerr << "Error: No delimiter ',' found\n";
+// 		return false;
+// 	}
+// 	if (check_allowed_whitespace(line) == false)
+// 		return false;
+// 	if (count_space(line) != 2)
+// 	{
+// 		if (count_space(line) < 2)
+// 			std::cerr << "Error: too few spaces" << std::endl;
+// 		else
+// 			std::cerr << "Error: too much spaces" << std::endl;
+// 		return false;
+// 	}
+// 	int delimiter_pos = line.find(',');
+// 	if (check_date(line.substr(0, delimiter_pos)) == false)
+// 	{	std::cerr << "Error: bad input => "<< line.substr(0, delimiter_pos) << std::endl;
+// 		return false;
+// 	}
+// 	if (check_value(line.substr(delimiter_pos + 1, line.length() - delimiter_pos)) == false)
+// 		return false;
+// 	return true;
+// }
