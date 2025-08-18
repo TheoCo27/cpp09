@@ -6,7 +6,7 @@
 /*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 09:30:30 by tcohen            #+#    #+#             */
-/*   Updated: 2025/08/18 12:33:03 by tcohen           ###   ########.fr       */
+/*   Updated: 2025/08/18 15:07:56 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 		std::cerr << "Wrong Format, please use: ./btc your_file.csv\n";
 		return (EXIT_FAILURE);
 	}
-	std::string str = "20          11                 -              01                        -                10                         |                       0                      ";
+	std::string str = "2022-12-01 | 2147483649";
 	check_input_line(str);
 	return (0);
 }
