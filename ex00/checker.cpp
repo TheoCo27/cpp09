@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 09:46:30 by tcohen            #+#    #+#             */
-/*   Updated: 2025/08/18 17:38:02 by tcohen           ###   ########.fr       */
+/*   Updated: 2025/07/14 08:56:19 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool ends_with(std::string str, std::string suffix)
 {
+	if (str.empty())
+		return false;
 	if (str.length() <= suffix.length())
 		return (false);
 	if (str.compare(str.length() - suffix.length(), suffix.length(), suffix) == 0)

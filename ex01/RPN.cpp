@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 08:35:38 by theog             #+#    #+#             */
-/*   Updated: 2025/08/20 02:22:43 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/20 02:28:51 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int RP_calculator(std::string input)
     while(std::getline(ss, token, ' '))
     {
         if (token.empty())
-            throw std::invalid_argument("Error input cannot be empty");
+            throw std::invalid_argument("Error, please use clean syntax");
         if ((token.length() == 1 && std::isdigit(token[0])) || (token.length() == 2 && token[0] == '-' && std::isdigit(token[1])))
         {
             nb = std::atoi(token.c_str());
@@ -156,7 +156,7 @@ int RP_calculator(std::string input)
         else if(token.length() == 1 && is_operator(token[0]))
             execute_operation(rp_stack, token[0]);
         else
-            throw std::invalid_argument("Error: " + token);
+            throw std::invalid_argument("Error: " + token + " ,please use clean syntax");
     }
     std::cout << rp_stack.top() << std::endl;
     return 0;
