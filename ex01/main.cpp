@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 08:35:35 by theog             #+#    #+#             */
-/*   Updated: 2025/07/14 08:42:42 by theog            ###   ########.fr       */
+/*   Updated: 2025/07/14 10:28:45 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ int main(int argc, char **argv)
     }
     if (RP_checker(argv[1]) == false)
         return (EXIT_FAILURE);
-    RP_calculator(argv[1]);
+    try{
+        RP_calculator(argv[1]);
+    }
+    catch(std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
     return (0);
 }
