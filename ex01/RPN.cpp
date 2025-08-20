@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 08:35:38 by theog             #+#    #+#             */
-/*   Updated: 2025/08/20 02:28:51 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/20 11:14:27 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void print_stack(std::stack<int> s)
 
 bool check_allowed_whitespace(std::string str)
 {
+    if (str[0] == ' ')
+    {
+        std::cerr << "Error: Expression cannot start with space" << std::endl;
+        return false;
+    }
 	for (int i = 0; str[i]; i++)
 	{
 		if (std::isspace(static_cast<int>(str[i])))
@@ -32,7 +37,17 @@ bool check_allowed_whitespace(std::string str)
 				std::cerr << "Error: Only spaces allowed" << std::endl;
 				return false;
 			}
+        if (i != 0 && str[i] == ' ' && str[i - 1] == ' ')
+        {
+            std::cerr << "Error: Can't have two spaces in a row" << std::endl;
+            return false;
+        }
 	}
+    if (str[str.size() - 1] == ' ')
+    {
+        std::cerr << "Error: Expression cannot end with space" << std::endl;
+        return false;
+    }
 	return true;
 }
 
@@ -68,14 +83,16 @@ bool check_operator_nb(std::string input)
 {
     int op_count = 0, space_count = 0, nb_count = 0;
 
-    for(int i = 0; input[i]; i++)
+    for(size_t i = 0; input[i]; i++)
     {
-        if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/')
+        if (input[i] == '+' || input[i] == '*' || input[i] == '/')
             op_count++;
+        if (input[i] == '-' && i != input.size() - 1 && !std::isdigit(input[i + 1]))
+            op_count ++;
         if (input[i] == ' ')
             space_count++;
     }
-    nb_count = input.length() - space_count - op_count;
+    nb_count = (space_count + 1) - op_count;
     if (op_count < 1 || nb_count < 2)
     {
         std::cerr << "Error: You need at least one digit and one operator" << std::endl;
@@ -105,7 +122,7 @@ int get_top(std::stack<int>& rp_stack)
     // std::cout << "stack before pop ---" << std::endl;
     // print_stack(rp_stack);
     if (rp_stack.empty())
-        throw std::invalid_argument("Error");
+        throw std::invalid_argument("Error: Cannot make operation with empty stack");
     int a = rp_stack.top();
     rp_stack.pop();
     // std::cout << "stack after pop ---" << std::endl;
@@ -114,7 +131,7 @@ int get_top(std::stack<int>& rp_stack)
 }
 int execute_operation(std::stack<int>& rp_stack, char op)
 {
-    int a = 0, b = 0, result = 0;
+    long a = 0, b = 0, result = 0;
 
     a = get_top(rp_stack);
     b = get_top(rp_stack);
@@ -132,9 +149,11 @@ int execute_operation(std::stack<int>& rp_stack, char op)
         else
             result = b / a;
     }
-    rp_stack.push(result);
+    if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+        throw std::overflow_error("Error: result out of int range");
+    rp_stack.push(static_cast<int>(result));
     //std::cout << a << " " << op << " " << b << " = " << result << std::endl;
-    return (result);
+    return (static_cast<int>(result));
 }
 
 int RP_calculator(std::string input)
@@ -148,11 +167,16 @@ int RP_calculator(std::string input)
     {
         if (token.empty())
             throw std::invalid_argument("Error, please use clean syntax");
-        if ((token.length() == 1 && std::isdigit(token[0])) || (token.length() == 2 && token[0] == '-' && std::isdigit(token[1])))
+        if ((!is_operator(token[0])) || (token.length() > 1 && token[0] == '-' && std::isdigit(token[1])))
         {
-            nb = std::atoi(token.c_str());
+            nb = std::stoi(token);
             rp_stack.push(nb);
         }
+        // if ((token.length() == 1 && std::isdigit(token[0])) || (token.length() == 2 && token[0] == '-' && std::isdigit(token[1])))
+        // {
+        //     nb = std::stoi(token);
+        //     rp_stack.push(nb);
+        // }
         else if(token.length() == 1 && is_operator(token[0]))
             execute_operation(rp_stack, token[0]);
         else
