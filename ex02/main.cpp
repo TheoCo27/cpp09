@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:26 by theog             #+#    #+#             */
-/*   Updated: 2025/08/20 18:11:03 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/21 17:32:42 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int main(int argc, char **argv)
     if (argc == 1)
     {
         std::cerr << "Error, need: ./PmergeMe your_list_to_sort" << std::endl;
+        return(EXIT_FAILURE);
     }
     if (checker(argv) == false)
         return(EXIT_FAILURE);
     try{
-        PmergeSort(argv);
+        PmergeSort(argv, argc);
     }
     catch(std::exception e)
     {
