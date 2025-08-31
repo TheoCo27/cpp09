@@ -6,7 +6,7 @@
 #    By: theog <theog@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/20 17:52:14 by theog             #+#    #+#              #
-#    Updated: 2025/08/31 22:25:25 by theog            ###   ########.fr        #
+#    Updated: 2025/08/31 22:46:23 by theog            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,4 +49,17 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+run1:
+	@echo "Exécution de $(NAME) avec 1000 entiers positifs triés..."
+	@./$(NAME) $(shell seq 1 1000)
+
+run2:
+	@echo "Exécution de $(NAME) avec 1000 entiers positifs aléatoires..."
+	@./$(NAME) $(shell shuf -i 1-3000 -n 3000)
+
+run3:
+	@echo "Exécution de $(NAME) avec 1000 entiers positifs aléatoires..."
+	@./$(NAME) $(shell shuf -i 1-10000 -n 10000)
+
+
+.PHONY: all clean fclean re run
