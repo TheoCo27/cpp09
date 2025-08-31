@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:26 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 22:28:23 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/31 22:55:45 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,34 @@ int main(int argc, char **argv)
         PmergeSort(argv, argc);
         print_time(argc - 1, "vector");
     }
+    catch (const std::invalid_argument& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    catch (const std::out_of_range& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
     catch(std::exception e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
     }
     try{
         timer(0);
         PmergeSort_v(argv, argc);
         print_time(argc - 1, "deque");
     }
+    catch (const std::invalid_argument& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    catch (const std::out_of_range& e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
     catch(std::exception e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
     }
     return 0;
 }

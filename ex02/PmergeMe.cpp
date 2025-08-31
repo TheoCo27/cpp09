@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:20 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 22:34:10 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/31 22:50:07 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ static bool check_forbidden_char(std::string str)
     {
         if(!std::isdigit(str[i]))
         {
-            std::cerr << "Error: Forbidden char detected please use digits only" << std::endl;
+
+            if (str[i] == '-')
+                std::cerr << "Error: Only positive int allowed" << std::endl;
+            else
+                std::cerr << "Error: Forbidden char detected please use digits only" << std::endl;
             return false;
         }
     }
