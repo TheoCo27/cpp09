@@ -6,7 +6,7 @@
 #    By: theog <theog@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/20 17:52:14 by theog             #+#    #+#              #
-#    Updated: 2025/08/20 17:53:08 by theog            ###   ########.fr        #
+#    Updated: 2025/08/31 22:25:25 by theog            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME        := PmergeMe
 CXX         := c++
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++98
 
-SRC         := main.cpp PmergeMe.cpp
+SRC         := main.cpp PmergeMe.cpp helper.cpp helper_v.cpp deque_version.cpp
 OBJ_DIR     := obj
 OBJ         := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 

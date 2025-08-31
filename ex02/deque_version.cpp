@@ -1,49 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*   deque_version.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:20 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 22:34:10 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/31 22:33:51 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-
-static bool check_forbidden_char(std::string str)
-{
-    if (str.empty())
-    {
-        std::cerr << "Error: Empty arg not allowed" << std::endl;
-        return false;            
-    }
-    for(size_t i = 0; str[i]; i++)
-    {
-        if(!std::isdigit(str[i]))
-        {
-            std::cerr << "Error: Forbidden char detected please use digits only" << std::endl;
-            return false;
-        }
-    }
-    return true;
-}
-
-bool checker(char **argv)
-{
-    for(size_t i = 1; argv[i]; i++)
-    {
-        if(check_forbidden_char(argv[i]) == false)
-            return false;
-    }
-   // std::cout << "This is a valid input" << std::endl;
-    return true;
-}
-
-
-static void make_list(std::vector<int>& list, char **argv)
+static void make_list(std::deque<int>& list, char **argv)
 {
     for(int i = 1; argv[i]; i++)
     {
@@ -53,12 +22,12 @@ static void make_list(std::vector<int>& list, char **argv)
     }
 }
 
-static void make_pair_tab(t_pair_vec& pair_tab, std::vector<int> list)
+static void make_pair_tab(t_pair_vec& pair_tab, std::deque<int> list)
 {
     if (list.size() < 2)
         return;
-    std::vector<int>::iterator it = list.begin();
-    std::vector<int>::iterator next_it = it + 1;
+    std::deque<int>::iterator it = list.begin();
+    std::deque<int>::iterator next_it = it + 1;
     while(it != list.end() && next_it != list.end())
     {
         int a, b;
@@ -85,27 +54,27 @@ static void make_pair_tab(t_pair_vec& pair_tab, std::vector<int> list)
 // {
 //     for(t_pvec_it it = pair_vec.begin(); it != pair_vec.end(); it++)
 //     {
-//         std::cout << "--VECTOR--" << std::endl;
+//         std::cout << "-:deque--" << std::endl;
 //         std::cout << "first = " << it->first << " second = " << it->second << std::endl;
 //     }
 //     std::cout << std::endl;
 // }
 
-static void print_list(std::vector<int> list)
+static void print_list(std::deque<int> list)
 {
-    for(std::vector<int>::iterator it = list.begin(); it != list.end(); it++)
+    for(std::deque<int>::iterator it = list.begin(); it != list.end(); it++)
         std::cout << *it << " ";
     std::cout << std::endl;
 }
 
-static std::vector<int> ford_johnson(std::vector<int> list)
+static std::deque<int> ford_johnson(std::deque<int> list)
 {
     if (list.size() <= 1)
         return list;
     t_pair_vec pair_tab;
-    std::vector<int> max_list;
-    std::vector<int> min_list;
-    std::vector<int>::iterator rest = list.end();
+    std::deque<int> max_list;
+    std::deque<int> min_list;
+    std::deque<int>::iterator rest = list.end();
     if (list.size() % 2 != 0)
         rest--;
     make_pair_tab(pair_tab, list);
@@ -114,34 +83,34 @@ static std::vector<int> ford_johnson(std::vector<int> list)
         max_list.push_back(pair_tab[i].first);
         min_list.push_back(pair_tab[i].second);
     }
-    std::vector<int> sorted = ford_johnson(max_list);
-    std::vector<int> j_seq = jacobsthal_sequence(min_list.size());
-    std::vector<bool> index_inserted(min_list.size(), false);
+    std::deque<int> sorted = ford_johnson(max_list);
+    std::deque<int> j_seq = jacobsthal_sequence_d(min_list.size());
+    std::deque<bool> index_inserted(min_list.size(), false);
     for(size_t i = 0; i < j_seq.size(); i++)
     {
         int value_index = j_seq[i];
         if (value_index >= static_cast<int>(min_list.size()))
             break;
         int value_to_insert = min_list[j_seq[i]];
-        binary_insert(sorted, value_to_insert);
+        binary_insert_d(sorted, value_to_insert);
         index_inserted[value_index] = true;
     }
     for(size_t i = 0; i < min_list.size(); i++)
     {
         if(index_inserted[i] == false)
-            binary_insert(sorted, min_list[i]);
+            binary_insert_d(sorted, min_list[i]);
     }
     if (rest != list.end())
-        binary_insert(sorted, *rest);
+        binary_insert_d(sorted, *rest);
     
     return sorted;
 }
 
-// static bool check_if_sorted(std::vector<int> list)
+// static bool check_if_sorted(std::deque<int> list)
 // {
-//     for(std::vector<int>::iterator it = list.begin(); it != list.end(); it++)
+//     for(std::deque<int>::iterator it = list.begin(); it != list.end(); it++)
 //     {
-//         std::vector<int>::iterator next_it = it + 1;
+//         std::deque<int>::iterator next_it = it + 1;
 
 //         if (next_it == list.end())
 //             break;
@@ -155,10 +124,10 @@ static std::vector<int> ford_johnson(std::vector<int> list)
 //     return true;
 // }
 
-void PmergeSort(char **argv, int argc)
+void PmergeSort_v(char **argv, int argc)
 {
-    std::vector<int> list;
-    std::vector<int> sorted;
+    std::deque<int> list;
+    std::deque<int> sorted;
 
     if (argc == 2)
     {
@@ -171,5 +140,5 @@ void PmergeSort(char **argv, int argc)
     sorted = ford_johnson(list);
     std::cout << "After : ";
     print_list(sorted);
-   // check_if_sorted(sorted);
+    //check_if_sorted(sorted);
 }

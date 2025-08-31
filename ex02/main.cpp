@@ -6,7 +6,7 @@
 /*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:26 by theog             #+#    #+#             */
-/*   Updated: 2025/08/21 17:32:42 by theog            ###   ########.fr       */
+/*   Updated: 2025/08/31 22:28:23 by theog            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,18 @@ int main(int argc, char **argv)
     if (checker(argv) == false)
         return(EXIT_FAILURE);
     try{
+        timer(0);
         PmergeSort(argv, argc);
+        print_time(argc - 1, "vector");
+    }
+    catch(std::exception e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    try{
+        timer(0);
+        PmergeSort_v(argv, argc);
+        print_time(argc - 1, "deque");
     }
     catch(std::exception e)
     {
