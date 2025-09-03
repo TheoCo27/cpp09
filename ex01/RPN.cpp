@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 08:35:38 by theog             #+#    #+#             */
-/*   Updated: 2025/08/20 11:14:27 by theog            ###   ########.fr       */
+/*   Updated: 2025/09/03 18:47:06 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool check_operator_nb(std::string input)
     nb_count = (space_count + 1) - op_count;
     if (op_count < 1 || nb_count < 2)
     {
-        std::cerr << "Error: You need at least one digit and one operator" << std::endl;
+        std::cerr << "Error: Wrong syntax" << std::endl;
         return false;
     }
     if(!(nb_count == op_count + 1))
@@ -156,6 +156,38 @@ int execute_operation(std::stack<int>& rp_stack, char op)
     return (static_cast<int>(result));
 }
 
+bool check_int_overflow(std::string input)
+{
+	if (input.size() > 11)
+	{
+		std::cerr << "Error: input out of int range" << std::endl;
+		return false;
+	}
+	for(int i = 0; input[i]; i++)
+	{
+		if (input[i] == '-' && i != 0)
+		{
+			std::cerr << "Error: sign '-' can only appear at the begining of a number" << std::endl;
+			return false;	
+		}
+		if (input[i] == '-' && i == 0)
+			continue;
+		if (!std::isdigit(static_cast<int>(input[i])))
+		{
+			std::cerr << "Error: each operator must be isolated by spaces only sign '-' is allowed" << std::endl;
+			return false;	
+		}
+		
+	}
+	long value = std::atol(input.c_str());
+	if (value > 2147483647 || value < -2147483648)
+	{
+		std::cerr << "Error: input out of int range" << std::endl;
+		return false;
+	}
+	return true;
+}
+
 int RP_calculator(std::string input)
 {
     std::stack<int> rp_stack;
@@ -169,7 +201,9 @@ int RP_calculator(std::string input)
             throw std::invalid_argument("Error, please use clean syntax");
         if ((!is_operator(token[0])) || (token.length() > 1 && token[0] == '-' && std::isdigit(token[1])))
         {
-            nb = std::stoi(token);
+			if (check_int_overflow(token) == false)
+				return 1;
+            nb = std::atoi(token.c_str());
             rp_stack.push(nb);
         }
         // if ((token.length() == 1 && std::isdigit(token[0])) || (token.length() == 2 && token[0] == '-' && std::isdigit(token[1])))

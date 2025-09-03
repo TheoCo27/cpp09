@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:26 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 22:55:45 by theog            ###   ########.fr       */
+/*   Updated: 2025/09/03 18:50:37 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int main(int argc, char **argv)
     if (argc == 1)
     {
         std::cerr << "Error, need: ./PmergeMe your_list_to_sort" << std::endl;
-        return(EXIT_FAILURE);
+        return(1);
     }
     if (checker(argv) == false)
-        return(EXIT_FAILURE);
+        return(1);
     try{
         timer(0);
         PmergeSort(argv, argc);

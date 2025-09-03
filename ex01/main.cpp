@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 08:35:35 by theog             #+#    #+#             */
-/*   Updated: 2025/07/14 10:28:45 by theog            ###   ########.fr       */
+/*   Updated: 2025/09/03 17:47:53 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int main(int argc, char **argv)
     if (argc != 2)
     {
         std::cerr << "Error: Need: ./RPN 'your_reverse_polish_expression'" << std::endl;
-        return (EXIT_FAILURE);
+        return (1);
     }
     if (RP_checker(argv[1]) == false)
-        return (EXIT_FAILURE);
+        return (1);
     try{
         RP_calculator(argv[1]);
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   deque_version.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:53:20 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 22:33:51 by theog            ###   ########.fr       */
+/*   Updated: 2025/09/03 19:08:03 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void make_list(std::deque<int>& list, char **argv)
     for(int i = 1; argv[i]; i++)
     {
         std::string str(argv[i]);
-        int nb = std::stoi(str);
+        int nb = ft_stoi(str);
         list.push_back(nb);
     }
 }

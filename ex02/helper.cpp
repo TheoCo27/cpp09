@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   helper.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: theog <theog@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 19:48:34 by theog             #+#    #+#             */
-/*   Updated: 2025/08/31 21:18:49 by theog            ###   ########.fr       */
+/*   Updated: 2025/09/03 19:12:44 by tcohen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+int ft_stoi(std::string str)
+{
+	long value = 0;
+
+	if (str.size() > 11)
+	{
+		throw std::invalid_argument("str too long to be converted to int");
+		return -1;
+	}
+	for (size_t i = 0; str[i]; i++)
+	{
+		if (str[i] == '-' && i == 0)
+			continue;
+		if (str[i] == '-' && i != 0)
+		{
+			throw std::invalid_argument("cannot convert str to int, sign at wrong position");
+			return -1;
+		}
+		if (!std::isdigit(static_cast<int>(str[i])))
+		{
+			throw std::invalid_argument("cannot convert str to int, invalid char detected");
+			return -1;
+		}
+	}
+	value = std::atol(str.c_str());
+	if (value > 2147483647 || value < -2147483648)
+	{
+			throw std::invalid_argument("value out of int range");
+			return -1;
+	}
+	return (static_cast<int>(value));
+
+}
 
 std::vector<int> jacobsthal_sequence(int n) 
 {
