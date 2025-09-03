@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: theog <theog@student.42.fr>                +#+  +:+       +#+         #
+#    By: tcohen <tcohen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/18 09:29:18 by tcohen            #+#    #+#              #
-#    Updated: 2025/08/20 01:44:30 by theog            ###   ########.fr        #
+#    Updated: 2025/09/03 17:42:22 by tcohen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME        := btc
 CXX         := c++
 CXXFLAGS    := -Wall -Wextra -Werror -std=c++98 -g -O0
 
-SRC         := main.cpp BitcoinExchange.cpp checker.cpp
+SRC         := main.cpp BitcoinExchange.cpp
 OBJ_DIR     := obj
 OBJ         := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
